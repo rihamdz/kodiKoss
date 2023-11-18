@@ -1,0 +1,270 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:kodikoss/presentation/Clients/editprofile.dart';
+
+class reportView extends StatefulWidget {
+  const reportView({super.key});
+
+  @override
+  State<reportView> createState() => _reportViewState();
+}
+
+class _reportViewState extends State<reportView> {
+  TextEditingController textEditingController = TextEditingController();
+  final List<Map<String, dynamic>> allUsers = [
+    {"id": 1, "name": "Andy", "age": 29},
+    {"id": 2, "name": "Aragon", "age": 40},
+    {"id": 3, "name": "Bob", "age": 5},
+    {"id": 4, "name": "Barbara", "age": 35},
+    {"id": 5, "name": "Candy", "age": 21},
+    {"id": 6, "name": "Colin", "age": 55},
+    {"id": 7, "name": "Audra", "age": 30},
+    {"id": 8, "name": "Banana", "age": 14},
+    {"id": 9, "name": "Cavers", "age": 100},
+    {"id": 10, "name": "Becky", "age": 32},
+  ];
+  initState() {
+    foundUsers = allUsers;
+    super.initState();
+  }
+
+  List<Map<String, dynamic>> foundUsers = [];
+  void filter(String enteredKeyword) {
+    List<Map<String, dynamic>> results = [];
+    if (enteredKeyword.isEmpty) {
+      results = allUsers;
+    } else {
+      results = allUsers
+          .where((user) =>
+              user["name"].toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    setState(() {
+      foundUsers = results;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 23.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Image(
+                                    image: AssetImage(
+                                        "assets/images/Previous.png"))),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              ' Report / Analyzing ',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff37474F),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => editProfile()));
+                                },
+                                child: Image(
+                                    image:
+                                        AssetImage("assets/images/Menu.png"))),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 100,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 50.0, right: 10, left: 10),
+                          child: TextField(
+                            onChanged: (value) => filter(value),
+                            controller: textEditingController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.search,
+                                color: Color(0xff5B6061),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: const ImageIcon(
+                                  AssetImage("assets/images/mecro.png"),
+                                  color: Color(0xff5B6061),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    textEditingController.clear();
+                                    foundUsers = allUsers;
+                                  });
+                                },
+                              ),
+                              filled: true,
+                              fillColor: Color(0X305FAAB6),
+                              hintText: 'Search...',
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                ' 3 May 2023 ',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                ' Gross revenue',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            ' 2000.00 DA',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Image(image: AssetImage("assets/images/earning.png")),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                              height: 160,
+                              width: 150,
+                              child: Image(
+                                  image: AssetImage("assets/images/New.png"))),
+                          Column(
+                            children: [
+                              Text(
+                                ' Acess method',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(
+                                  height: 130,
+                                  width: 140,
+                                  child: Image(
+                                      image: AssetImage(
+                                          "assets/images/Circle.png"))),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        width: 365,
+                        height: 112,
+                        decoration: BoxDecoration(
+                          color: Color(0x305FAAB6),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Image(
+                                    image:
+                                        AssetImage("assets/images/flop.png")),
+                                Column(
+                                  children: [
+                                    Text(
+                                      ' SPENDINGS',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      ' 1000.00',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xff5FAAB6),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Image(
+                                    image: AssetImage("assets/images/top.png")),
+                                Column(
+                                  children: [
+                                    Text(
+                                      ' INCOMES',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      ' 7000.00',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xff5FAAB6),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ]))));
+  }
+}
